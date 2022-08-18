@@ -209,9 +209,9 @@
 </div>
 
 
-<div *ngIf="loading">
+<!-- <div *ngIf="loading">
     <app-loading></app-loading>
-</div>
+</div> -->
 
 <div *ngIf="showOverlay" class="cover-overlay">
     <span class="cover-overlay-message">
@@ -295,7 +295,7 @@
 
                             </div>
                         </tab>
-                        <tab [heading]="'Document'|translate">
+                        <tab [heading]="'Document'">
                             <div class="mt-3">
                                 <div *ngIf="RequerdDocspre">
                                     <div class="form-group row col-sm-12 m-0" *ngFor="

@@ -33,9 +33,10 @@ import { SidebarModule } from 'ng-sidebar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormDisplayComponent } from '../formdisplay/formdisplay.component';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 @NgModule({
   imports: [
+    TabsModule.forRoot(),
     FileUploadModule,
     BsDropdownModule.forRoot(),
     NgbModule,

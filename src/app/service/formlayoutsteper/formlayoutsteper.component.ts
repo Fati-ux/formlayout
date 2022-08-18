@@ -41,6 +41,7 @@ export class FormlayoutsteperComponent implements OnInit {
 
   @Output() completed1 = new EventEmitter();
   @Input() formData;
+  @Input() formcode;
   @Input() Mode;
   OD = 'survry';
   ALLformlist: formlist[] = [];
@@ -50,7 +51,6 @@ export class FormlayoutsteperComponent implements OnInit {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
-  formcode: any;
   surveyModel1: Survey.SurveyModel;
   stepperOrientation: Observable<StepperOrientation>;
   constructor(
