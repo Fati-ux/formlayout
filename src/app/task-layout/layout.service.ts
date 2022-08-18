@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LayoutService {
-  private FormPath = environment.formPath;
+
   private Physicalform = environment.rootPath3 + 'physicalforms/GetMetadata';
   private AllFormPath = environment.rootPath3 + '_viewFormlayout/GetMetadata';
 
