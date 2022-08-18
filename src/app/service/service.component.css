@@ -1,0 +1,179 @@
+/* @charset "utf-8";
+
+//@import 'utils/variables';
+//@import 'utils/core'; */
+:root {
+    --fonts: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
+
+    --brand: #28a745;
+    --light-grey: #f6f6f6;
+    --dark-grey: #545555;
+    --white: #fff;
+}
+
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: var(--light-grey);
+    color: var(--dark-grey);
+    font: 400 1em/1.25 var(--fonts);
+}
+
+::selection {
+    background-color: var(--brand);
+    color: var(--white);
+}
+
+a {
+    color: var(--brand);
+    text-decoration: none;
+
+}
+
+a a:hover {
+    border-bottom: 1px dotted var(--brand);
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+h1,
+h2 {
+    font-weight: 300;
+}
+
+h1 {
+    border-bottom: 1px dotted var(--brand);
+    display: block;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    margin: 0.5rem 0;
+}
+
+.loading {
+    padding: 1em;
+}
+
+
+demo {
+    height: 100%;
+    width: 100%;
+}
+
+.demo-header {
+    align-items: center;
+    background: var(--brand);
+    box-shadow: 0 0.1em 1.5em rgba(var(--dark-grey), 0.5);
+    color: var(--white);
+    display: flex;
+    padding: 1em;
+}
+
+.demo-header__toggle {
+    background: transparent;
+    border: 0.15rem solid var(--white);
+    border-left: 0;
+    border-right: 0;
+    cursor: pointer;
+    font-size: 0;
+    height: 1.5rem;
+    margin-right: 1rem;
+    position: relative;
+    width: 2rem;
+
+}
+
+.demo-header__toggle::after {
+
+    background: var(--white);
+    content: '';
+    height: 0.15rem;
+    left: 0;
+    margin-top: -0.075rem;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+:host ::ng-deep .ui-dialog .ui-dialog-titlebar {
+    background: tomato;
+}
+
+.demo-sidebar {
+    background-color: #fff;
+    padding: 2em 1em;
+
+}
+.modal-body{
+   background-color: #fff;
+}
+
+.demo-sidebar.ng-sidebar--opened.ng-sidebar--over {
+    box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+}
+
+.demo-contents {
+    padding: 0 2em;
+}
+
+.demo-control {
+    background-color: var(--light-grey);
+    border: 1px solid var(--dark-grey);
+    cursor: pointer;
+    margin-bottom: 0.5em;
+    padding: 0.5em 2em;
+    transition: background-color 0.15s;
+
+}
+
+.demo-control:hover {
+    background-color: var(--dark-grey);
+    color: var(--white);
+}
+
+.cover-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.64);
+}
+
+.cover-overlay-message {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffdb5b;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.cover-overay-warn {
+    color: #444444;
+    font-size: 2em;
+}
+
+.cover-overay-count {
+    font-size: 3.5em;
+    text-align: center;
+    color: #444444;
+    border-style: solid;
+    border-radius: 50px;
+    padding: 0 22px;
+    margin: 4vh auto 0 auto;
+    box-shadow: 0px 5px 5px grey;
+}
+p-dialog ::ng-deep .bgColorChange {
+    background-color: #000;
+}

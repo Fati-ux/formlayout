@@ -1,0 +1,33 @@
+<mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
+    <mat-step *ngFor=" let item of ALLformlist ;  let index = index; let last = last;" [stepControl]="item.Order">
+
+        <ng-template matStepLabel>
+            <div class="mat-step-custom-click">
+                <span>{{item.Table_Name}}</span>
+            </div>
+        </ng-template>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <div class="survey-container contentcontainer codecontainer">
+                    {{item.Form_Code}}
+                    <div [id]="item.Form_Code">
+                    </div>
+                </div>
+            </mat-expansion-panel-header>
+            <div class="survey-container contentcontainer codecontainer">
+                <div [id]="item.Form_Code">
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+        <div>
+            <button *ngIf="index !== 0" matStepperPrevious class="btn btn-primary" type="button"
+                (click)="prevStep(index)">Back</button>
+            <button *ngIf="!last" matStepperNext class="btn btn-primary" type="button"
+                (click)="nextStep(index)">Next</button>
+            <button *ngIf="last" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+
+    </mat-step>
+
+</mat-stepper>

@@ -1,0 +1,438 @@
+<div class="m-3" *ngIf="!loading">
+
+    <div class="p-3 bg-success text-white">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"><span translate>Application No</span>: {{licenceData?.Application_No}}</th>
+                    <th scope="col"><span translate>Service Name</span>: {{licenceData?.Service_Name}}</th>
+                    <th scope="col" class="tooltip222">
+                        <!-- <span translate>Plot ID </span> : {{licenceData.Parcel_ID}}
+            <span class="tooltiptext222">
+              <span *ngIf="licenceData.Parcel_ID"><span translate>Plot ID </span> : {{licenceData?.Parcel_ID}}</span>
+              <span *ngIf="licenceData.Plot_Merge_1"><span translate>Parcel mearge1 </span> :
+                {{licenceData?.Plot_Merge_1}}</span>
+              <span *ngIf="licenceData.Plot_Merge_2"><span translate>Parcel mearge2 </span> :
+                {{licenceData?.Plot_Merge_2}}</span>
+              <span *ngIf="licenceData.Plot_Merge_3"><span translate>Parcel mearge3 </span> :
+                {{licenceData?.Plot_Merge_3}}</span>
+              <span *ngIf="licenceData.Plot_Merge_4"><span translate>Parcel mearge4 </span> :
+                {{licenceData?.Plot_Merge_4}}</span>
+
+
+            </span> -->
+                    </th>
+
+                    <th scope="col" class="tooltip222"><span class="fa fa-info-circle"></span><span translate>More
+                            Info</span>
+                        <span class="tooltiptext2221">
+                            <div><span translate>Applicant_First_Name_AM </span> :
+                                {{licenceData?.Applicant_First_Name_AM}}</div>
+                            <div><span translate>Applicant_Middle_Name_AM </span> :
+                                {{licenceData?.Applicant_Middle_Name_AM}}</div>
+                            <div><span translate>Wereda_ID </span> : {{licenceData?.Wereda_ID}}</div>
+                            <div><span translate>Cust_Phone_No </span> : {{licenceData?.Cust_Phone_No}}</div>
+                            <div><span translate>Cust_TIN_No </span> : {{licenceData?.Cust_TIN_No}}</div>
+                            <div><span translate>Email </span> : {{licenceData?.Email}}</div>
+                            <div><span translate>QueueNo </span> : {{QueueNo}}</div>
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+
+    <div class="mt-3 row">
+
+        <div class="col-md-12">
+            <ng-sidebar-container style="height: 100vh">
+                <ng-sidebar [(opened)]="_opened" [mode]="'push'" [closeOnClickOutside]="true">
+
+                    <div>
+
+                        <div>
+                            <div class="col-md-12 m-0">
+                                <div>
+                                    <div *ngIf="serviceService.isValidated">
+
+                                        <div *ngIf="RequerdDocs">
+                                            <form #f="ngForm" novalidate name="proform">
+                                                <div class="form-group row col-md-12"
+                                                    *ngFor="let RequiredDoc of RequerdDocs; let i = index;">
+                                                    <label for="File" class="col-md-4 col-form-label">
+                                                        {{ RequiredDoc.description_en }}
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <div>
+
+                                                        </div>
+                                                        <div *ngIf="!RequiredDoc.File">
+                                                            <p-fileUpload #fild id="File" name="demo[]"
+                                                                customUpload="true"
+                                                                (uploadHandler)="upload($event,RequiredDoc,fild)"
+                                                                accept="application/pdf,image/*" maxFileSize="3000000">
+                                                            </p-fileUpload>
+
+                                                        </div>
+                                                        <div *ngIf="RequiredDoc.File">
+                                                            <button type="button" class="btn btn-primary"
+                                                                (click)="removeUpload(RequiredDoc)">Remove</button>
+                                                        </div>
+                                                        <div *ngIf="RequiredDoc.required">
+                                                            <input type="hidden" class="form-control" #file="ngModel"
+                                                                [(ngModel)]="RequiredDoc.File"
+                                                                [name]="RequiredDoc.description_en" id="NumberOfLift"
+                                                                placeholder="Number of Lift" required>
+                                                            <div *ngIf="file.invalid">
+                                                                <span class="text-danger">REQUIRED</span>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="RequiredDoc.File">
+                                                            <div *ngIf="RequiredDoc.fileType !== 'application/pdf'">
+                                                                <img height="30%" width="30%" [src]="RequiredDoc.File"
+                                                                    alt="FileUPloaded" />
+                                                            </div>
+                                                            <div *ngIf="RequiredDoc.fileType === 'application/pdf'">
+                                                                <iframe width="100%" [src]="RequiredDoc.File"
+                                                                    alt="FileUPloaded" class="pdf-ifram"></iframe>
+                                                            </div>
+                                                            <span>File name: {{ RequiredDoc.fileName }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!serviceService.isValidated">
+                                        <label class="text-warning" translate>Need to save first, to upload files and
+                                            write post in
+                                            notes</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-sm-10 m-0" *ngIf="serviceService.isValidated">
+                                    <label translate>post in note</label>
+                                    <textarea class="form-control" style="background: yellow;"
+                                        [(ngModel)]="NoteObj.remarks">
+
+                  </textarea>
+                                    <button type="button" class="btn btn-primary mr-2"
+                                        *ngIf="!this.NoteObj.postit_note_code" (click)="addNote()" translate>Save
+                                    </button>
+                                    <button type="button" class="btn btn-primary mr-2"
+                                        *ngIf="this.NoteObj.postit_note_code" (click)="saveNote()" translate>Save
+                                    </button>
+                                    <button type="button" class="btn btn-danger mr-2"
+                                        *ngIf="this.NoteObj.postit_note_code" (click)="DeleteNote()" translate>Delete
+                                    </button>
+                                    <button type="button" class="btn btn-primary" *ngIf="this.NoteObj.postit_note_code"
+                                        (click)="sendNote()" translate><span class="fa fa-telegram"></span> Send
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button type="button" class="mt-5 btn btn-secondary" (click)="_toggleOpened()" translate>Close
+                        Upload</button>
+                    <div>
+
+                    </div>
+                </ng-sidebar>
+
+                <div ng-sidebar-content>
+                    <header class="demo-header bg-success">
+                        <button (click)="_toggleOpened()" type="button" class="demo-header__toggle" translate>Toggle
+                            sidebar</button>
+                        <span translate>Upload File</span>
+                    </header>
+
+                    <section class="demo-contents">
+
+
+                        <div>
+
+                            <div *ngIf="ID==2;">
+
+                                <div class="mt-3">
+                                    <app-formlayoutsteper (completed1)="saveForm($event)" [formcode]="formcode"
+                                        [formData]="FormData"></app-formlayoutsteper>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                    </section>
+                </div>
+            </ng-sidebar-container>
+
+        </div>
+
+    </div>
+
+    <div class="p-3 border-secondary border-5 bg-secondary text-white h-100 text-center  m-10 mt-10">
+        <button type="button" class="btn btn-primary mr-2" (click)="displayRivew=true" translate>Review</button>
+        <button type="button" class="btn btn-primary mr-2" (click)="Back()" translate>
+            Back
+        </button>
+
+
+        <span class="dropdown">
+            <button [disabled]="serviceService.disablefins" type="button" class="btn btn-primary dropdown-toggle mr-2"
+                data-bs-toggle="dropdown" translate (click)="Submit('00000000-0000-0000-0000-000000000000')">
+                Required Action
+            </button>
+
+            <span class="dropdown-menu">
+                <a class="dropdown-item" *ngIf="tskTyp!='c800fb16-f961-e111-95d6-00e04c05559b'"
+                    (click)="Submit('00000000-0000-0000-0000-000000000000')">Submit/ላከው</a>
+                <span *ngIf="tskTyp=='c800fb16-f961-e111-95d6-00e04c05559b'">
+
+                    <span *ngFor="let DropDownLists of DropDownList;">
+                        <a class="dropdown-item"
+                            (click)="SubmitAR(DropDownLists.task_rules_code)">{{DropDownLists.decision_rule_en}}</a>
+                        <li class="divider dropdown-divider"></li>
+                    </span>
+                </span>
+            </span>
+        </span>
+        <button type="button" class="btn btn-primary mr-2" (click)="Close()" translate>Pend & close</button>
+    </div>
+
+</div>
+
+
+<div *ngIf="loading">
+    <app-loading></app-loading>
+</div>
+
+<div *ngIf="showOverlay" class="cover-overlay">
+    <span class="cover-overlay-message">
+        <span class="cover-overay-warn">{{ warnMessage }}</span>
+        <span *ngIf="countDownString != ''" class="cover-overay-count">{{ countDownString }}</span>
+    </span>
+</div>
+
+<simple-notifications></simple-notifications>
+
+
+
+
+<p-dialog [(visible)]="displayRivew" [modal]="true" [responsive]="true"
+    [style]="{'minHeight':'50%','height':'800px','minWidth':'10%','width':'80%'}" [maximizable]="true"
+    [baseZIndex]="10000">
+    <p-header>
+        <h4 class="modal-title pull-left" translate>Review</h4>
+    </p-header>
+    <div class="modal-body">
+        <div>
+            <div class="col-sm-12">
+                <div *ngIf="ifAppNo" class="col-sm-12 row mb-3">
+                    <div class="col-sm-2" translate>Application No</div>
+                    <div class="col-sm-10"><select class="form-control" [(ngModel)]="AppN" (change)="getAppData(AppN)"
+                            name="CustomerType" id="ApplicationLIst">
+                            <option disabled translate>select</option>
+                            <option *ngFor="let AppNo of AppNoList" [value]="AppNo.Application_No">
+                                {{AppNo.Application_No}}</option>
+                        </select></div>
+
+                </div>
+                <div *ngIf="ifTask" class="col-sm-12 row  mb-3">
+                    <div class="col-sm-2" translate>Task Name</div>
+                    <div class="col-sm-10">
+                        <select class="form-control" [(ngModel)]="TaskN" (change)="getTaskData(TaskN)"
+                            name="CustomerType" id="TaskList">
+                            <option disabled translate>select</option>
+                            <option *ngFor="let Task of PreAppData" [value]="Task.tasks_task_code">
+                                {{Task.description_en}}</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <p-table *ngIf="TaskN" [value]="PreTaskData" [paginator]="true" [rows]="5">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th scope="col" translate>Status</th>
+                            <th scope="col" translate>Start Date</th>
+                            <th scope="col" translate>End Date</th>
+                            <th scope="col" translate>Level</th>
+                            <th scope="col" translate></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-task>
+                        <tr>
+                            <td>{{task.status}}</td>
+                            <td>{{task.start_date}}</td>
+                            <td>{{task.end_date}}</td>
+                            <td>{{task.level}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" (click)="SelectTask(task)"
+                                    translate>Select</button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <div *ngIf="ifTaskDetail">
+
+                    <tabset #staticTabs>
+                        <tab heading="Form">
+                            <div>
+
+                                <div *ngIf="preAppID==2">
+                                    <app-formdisplay [formcode]="selectedTask.form_code"
+                                        [formData]="selectedTask.JsonData" [Mode]="'display'">
+                                    </app-formdisplay>
+                                </div>
+
+                            </div>
+                        </tab>
+                        <tab [heading]="'Document'|translate">
+                            <div class="mt-3">
+                                <div *ngIf="RequerdDocspre">
+                                    <div class="form-group row col-sm-12 m-0" *ngFor="
+                      let RequerdDocpre of RequerdDocspre;
+                      let i = index
+                    ">
+                                        <label class="col-sm-12 col-form-label m-0">{{
+                                            RequerdDocpre.description_en
+                                            }}</label>
+                                        <div class="col-sm-12 m-0 text-center">
+                                            <div *ngIf="!RequerdDocpre.File">
+                                                <!--<p-fileUpload customUpload="true"
+                                (Handler)="upload($event,RequiredDoc)"
+                                accept="application/pdf,image/*">
+                  </p-fileUpload>-->
+                                            </div>
+
+                                            <div *ngIf="RequerdDocpre.File">
+                                                <!--<button type="button" class="btn btn-primary" (click)="removeUpload(RequiredDoc)">
+                    remove
+                  </button>-->
+
+
+                                                <!-- <img
+                          width="100%"
+                          [src]="RequerdDocpre.File"
+                          alt="FileUPloaded"
+                        /> -->
+                                                <div *ngIf="RequerdDocpre.mimeType == 'application/pdf'; else image">
+                                                    <iframe width="100%" [src]="RequerdDocpre.File" alt="FileUPloaded"
+                                                        class="pdf-ifram">
+                                                    </iframe>
+
+                                                </div>
+                                                <ng-template #image>
+                                                    <img width="100%" [src]="RequerdDocpre.File" alt="FileUPloaded" />
+                                                </ng-template>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Note">
+                            <div>
+
+                                <p-table [value]="notes">
+
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>#</th>
+                                            <th scope="col">userid</th>
+                                            <th scope="col" translate>note</th>
+
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-note>
+
+                                        <tr>
+                                            <td>{{note.number}}</td>
+                                            <td>{{ note.UserId}}</td>
+                                            <td style=" white-space: nowrap; 
+                      width: 100px; 
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                     " (click)=" preNoteObj.remarks = note.remarks">{{ note.remarks }}</td>
+
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="displayRivew=false" translate>Done</button>
+    </div>
+</p-dialog>
+
+<ngx-smart-modal #Validate identifier="Validate">
+    <div style="width: 100%">
+
+    </div>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left" translate>Validate</h4>
+    </div>
+    <div class="modal-body">
+
+        <div>
+            <iframe class="holds-the-iframe" height="700px" width="100%" [src]="ValidateReportPath"></iframe>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="ngxSmartModalService.getModal('Validate').close()"
+            translate>Done
+        </button>
+    </div>
+</ngx-smart-modal>
+
+<p-confirmDialog [header]="'Confirmation'" icon="pi pi-exclamation-triangle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>
+
+<div *ngIf="false" class="col-md-12">
+    <div *ngIf="DBServerStatus">
+        <div class="p-3 bg-success text-white">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><span translate>Status: Database</span></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="!DBServerStatus">
+        <div class="p-3 bg-danger text-white">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><span translate>Status: Database</span></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
