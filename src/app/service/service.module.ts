@@ -22,7 +22,7 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { FormlayoutsteperComponent } from './formlayoutsteper/formlayoutsteper.component';
 import { SortPipe } from '../service/formlayoutsteper/sort.pipe';
-import { MaterialExampleModule } from 'src/material.module';
+import { MaterialExampleModule } from '../../../src/material.module';
 
 import { MatButtonModule } from '@angular/material/button';
 import { TableModule } from 'primeng/table';
@@ -33,8 +33,10 @@ import { SidebarModule } from 'ng-sidebar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormDisplayComponent } from '../formdisplay/formdisplay.component';
+
 @NgModule({
   imports: [
+    FileUploadModule,
     BsDropdownModule.forRoot(),
     NgbModule,
     SidebarModule.forRoot(),

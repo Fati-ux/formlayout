@@ -12,9 +12,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
   exports: [
+    MatExpansionModule,
     A11yModule,
     CdkAccordionModule,
     ClipboardModule,

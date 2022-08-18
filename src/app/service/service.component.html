@@ -34,7 +34,7 @@
                             <div><span translate>Cust_Phone_No </span> : {{licenceData?.Cust_Phone_No}}</div>
                             <div><span translate>Cust_TIN_No </span> : {{licenceData?.Cust_TIN_No}}</div>
                             <div><span translate>Email </span> : {{licenceData?.Email}}</div>
-                            <div><span translate>QueueNo </span> : {{QueueNo}}</div>
+                            
                         </span>
                     </th>
                 </tr>
@@ -58,7 +58,7 @@
 
                                         <div *ngIf="RequerdDocs">
                                             <form #f="ngForm" novalidate name="proform">
-                                                <div class="form-group row col-md-12"
+                                                <!-- <div class="form-group row col-md-12"
                                                     *ngFor="let RequiredDoc of RequerdDocs; let i = index;">
                                                     <label for="File" class="col-md-4 col-form-label">
                                                         {{ RequiredDoc.description_en }}
@@ -100,7 +100,7 @@
                                                             <span>File name: {{ RequiredDoc.fileName }}</span>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                             </form>
                                         </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MyTaskService} from '../my-task.service';
 
-import { ServiceService } from 'src/app/service/service.service';
+import { ServiceService } from '../../../../src/app/service/service.service';
 @Component({
   selector: 'app-supervisor-task',
   templateUrl: './supervisor-task.component.html',

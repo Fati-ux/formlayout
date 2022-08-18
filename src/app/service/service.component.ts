@@ -5,7 +5,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../src/environments/environment';
 import { EventEmitter } from 'events';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { LayoutService } from '../task-layout/layout.service';
@@ -46,7 +46,7 @@ export class ServiceComponent implements OnInit {
   warnMessage: '';
 
   //
-
+  
   AppNo;
   tskTyp;
   DropDownList;
@@ -87,7 +87,7 @@ export class ServiceComponent implements OnInit {
   preNoteObj = { remarks: '', postit_note_code: '' };
   //for review button
   displayRivew;
-
+  DBServerStatus= false;
   public CustomerTypeLookUP;
   public CustomerLookUP;
   public CustomerBankLookUP;

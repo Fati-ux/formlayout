@@ -15,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { environment } from '../environments/environment';
 import { MyTaskModule } from './my-task/my-task.module';
-import { MaterialExampleModule } from 'src/material.module';
+import { MaterialExampleModule } from '../../src/material.module';
 import { TableModule } from 'primeng/table';
 
 @NgModule({

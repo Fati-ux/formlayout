@@ -1,4 +1,4 @@
-import { ServiceService } from 'src/app/service/service.service';
+import { ServiceService } from '../../../src/app/service/service.service';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';

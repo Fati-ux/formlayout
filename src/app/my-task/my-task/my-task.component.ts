@@ -1,4 +1,4 @@
-import { ServiceService } from 'src/app/service/service.service';
+import { ServiceService } from '../../../../src/app/service/service.service';
 import { Component, OnInit } from '@angular/core';
 import { MyTaskService } from '../my-task.service';
 import { Router } from '@angular/router';
